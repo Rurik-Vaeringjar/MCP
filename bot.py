@@ -49,6 +49,12 @@ async def on_connect():
 		log(f"NET: {bot.user} has connected to Discord")
 
 @bot.event
+async def on_command_error(ctx, error):
+	if isinstance(error, commands.CommandNotFound):
+		return
+	raise error
+
+@bot.event
 async def on_member_join(member):
 	if member.guild.name == GUILD:
 
