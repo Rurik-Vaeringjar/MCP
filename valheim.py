@@ -60,6 +60,7 @@ class Valheim(commands.Cog):
 				embed.add_field(name="Sources", value=source_str, inline=False)
 					
 			await ctx.send(embed=embed, delete_after=60.0)
+		await ctx.message.delete()
 
 	@commands.command(name='items', hidden=True)
 	async def get_items(self, ctx, *args):
@@ -114,3 +115,4 @@ class Valheim(commands.Cog):
 			embed.add_field(name=name_str, value=f"*{value_str}*", inline=False)
 
 			await ctx.send(embed=embed, delete_after=60.0)
+			await ctx.message.delete()

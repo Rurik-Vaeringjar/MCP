@@ -72,15 +72,15 @@ async def on_message(message):
 	if message.author == bot.user:
 		return
 
-	delete = False
+	#delete = False
 
 	msg = message.content
 	
-	if msg.startswith(f"{cmd}roll") or msg.startswith(f"{cmd}help") or msg.startswith(f"{cmd}datetime") or msg.startswith(f"{cmd}dt"):
-		log(f"CMD: {message.author.name} called " + message.content)
-	elif msg.startswith(cmd):
-		log(f"CMD: {message.author.name} called " + message.content)
-		delete = True
+	#if msg.startswith(f"{cmd}roll") or msg.startswith(f"{cmd}help") or msg.startswith(f"{cmd}datetime") or msg.startswith(f"{cmd}dt"):
+	#	log(f"CMD: {message.author.name} called " + message.content)
+	#elif msg.startswith(cmd):
+	#	log(f"CMD: {message.author.name} called " + message.content)
+	#	delete = True
 	
 	#process all the bot and cog commands
 	#needed because on_message() was overwritten
@@ -90,8 +90,8 @@ async def on_message(message):
 	if msg == f"{cmd}help" and (message.author.id == 160515564308135937 or message.author.id == 269954014127325194):
 		await message.channel.send("```\nSecret:\n  toggle\tToggles name switching on and off\n  randsp\tChooses a random name and sets sp to it\n```", delete_after=3.0)
 	
-	if delete:
-		await message.delete()
+	#if delete:
+	#	await message.delete()
 
 ################################################################################################################### COGS
 bot.add_cog(Sp(bot))
@@ -155,6 +155,7 @@ def cut_into_ints(arg: str) -> tuple:
 @bot.command(name='test', hidden=True)
 async def test_post(ctx):
 	await ctx.send("Status: 200", delete_after=3.0)
+	await ctx.message.delete()
 
 #Chronomancy, the magic of time.
 @bot.command(name='datetime', hidden=True)
@@ -239,4 +240,5 @@ async def member_list(ctx):
 			i += 1
 			print(f"name: {member.name}\t\t\tnick: {member.nick}\t\t\t(id: {member.id})")
 		print(f"{i} total on {ctx.guild.name}")
+
 bot.run(TOKEN)

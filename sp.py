@@ -107,6 +107,8 @@ class Sp(commands.Cog):
 		else:
 			await ctx.send("You don't have permission to do that", delete_after=3.0)
 
+		await ctx.message.delete()
+
 
 	@commands.command(name='toggle', hidden=True)
 	async def toggle(self, ctx):
@@ -117,6 +119,8 @@ class Sp(commands.Cog):
 		
 			log(f"UPD: Toggle set to {self.sp_toggle}")
 			await ctx.send(f"toggle is now {self.sp_toggle}", delete_after=2.0)
+		
+		await ctx.message.delete()
 
 	@commands.command(name='check', help="Checks the splist")
 	async def check(self, ctx, *args):
@@ -126,6 +130,7 @@ class Sp(commands.Cog):
 			arg = concat(args)
 
 		con = get_connection()
+
 		cur = con.cursor()
 		sp = False
 		if arg == "size":
@@ -136,7 +141,10 @@ class Sp(commands.Cog):
 
 			sp = check_splist(cur, name)
 			await ctx.send(f"{name} **is** in splist" if sp else f"{name} **is not** in splist", delete_after=2.0)
+		
 		con.close()
+
+		await ctx.message.delete()
 
 	@commands.command(name='who', help="Find out who put a name in the sp list")
 	async def who_done_it(self, ctx, *args):
@@ -149,13 +157,18 @@ class Sp(commands.Cog):
 			nick = capitalize_words(arg)
 		
 		con = get_connection()
+		
 		cur = con.cursor()
 		cur.execute("SELECT contributor FROM sp_list WHERE name=?", (nick,))
 		contributor, = cur.fetchone()
 		if not contributor:
 			contributor = "An unknown contributor"
+		
 		con.close()
-		await ctx.send(f"{contributor} put {nick} in the sp list.", delete_after=5.0)		
+
+		await ctx.send(f"{contributor} put {nick} in the sp list.", delete_after=5.0)
+		await ctx.message.delete()
+
 
 	@commands.command(name='add', help="Add another name to the pile")
 	async def add(self, ctx, *args):
@@ -184,3 +197,4 @@ class Sp(commands.Cog):
 				await ctx.send(f"{name} is not valid", delete_after=2.0)
 			
 			con.close()
+			await ctx.message.delete()

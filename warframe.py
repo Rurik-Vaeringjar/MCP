@@ -116,6 +116,7 @@ class WarframeCog(commands.Cog):
 
 			await ctx.send(embed=embeds[0], delete_after=120.0)
 			await ctx.send(embed=embeds[1], delete_after=120.0)
+		await ctx.message.delete()
 
 	@commands.command(name='fissure', hidden=True)
 	async def show_fissure(self, ctx):
@@ -167,6 +168,7 @@ class WarframeCog(commands.Cog):
 					
 				embed = discord.Embed(description=msg) #, color=discord.Color.from_rgb(180, 0, 180))
 				await ctx.send(embed=embed, delete_after=60.0)
+		await ctx.message.delete()
 	
 	@commands.command(name='invasion', hidden=True)
 	async def show_invasion(self, ctx):
@@ -188,6 +190,7 @@ class WarframeCog(commands.Cog):
 				embed.add_field(name=f"{variant.missionType} - {variant.mission}", value=variant.modifier, inline=False)
 			embed.set_footer(text=f"{sortie.eta} remaining", icon_url="https://cdn.discordapp.com/emojis/931758276784316416.png")
 			await ctx.send(embed=embed, delete_after=30.0)
+		await ctx.message.delete()
 	
 	# ------------------------------------------------------------------------------------------------------------- CETUS
 	@commands.command(name="cetus", help="Shows infomation about the day/night cycle on Cetus")
@@ -205,6 +208,7 @@ class WarframeCog(commands.Cog):
 			msg += "```" + ("ini" if cetus.isDay else "css") +"\n[It will be " + ("Night" if cetus.isDay else "Day") + f" at approximately {approx_time}]\n```"
 			embed = discord.Embed(description=msg, title="Plains of Eidolon", url=cetus.wikiaUrl)
 			await ctx.send(embed=embed, delete_after=30.0)
+		await ctx.message.delete()
 
 	# ------------------------------------------------------------------------------------------------------------- VALLIS
 	@commands.command(name='vallis', help="Shows information about the warm/cold cycle on the Vallis")
@@ -222,6 +226,7 @@ class WarframeCog(commands.Cog):
 			msg += "```" + ("ini" if vallis.isWarm else "css") + "\n[It will be " + ("Cold" if vallis.isWarm else "Warm") + f" at approximately {approx_time}]\n```"
 			embed = discord.Embed(description=msg, title="Orb Vallis", url=vallis.wikiaUrl)
 			await ctx.send(embed=embed, delete_after=30.0)
+		await ctx.message.delete()
 	
 	# ------------------------------------------------------------------------------------------------------------- DEIMOS
 	@commands.command(name='deimos', help="Shows information about the fass/vome cycle on the Cambion Drift")
@@ -239,6 +244,7 @@ class WarframeCog(commands.Cog):
 			msg += "```" + ("ini" if deimos.isFass else "css") + "\n[" + ("Vome" if deimos.isFass else "Fass") + f" will be active at approximately {approx_time}]\n```"
 			embed = discord.Embed(description=msg, title="Cambion Drift", url=deimos.wikiaUrl)
 			await ctx.send(embed=embed, delete_after=30.0)
+		await ctx.message.delete()
 
 	# ------------------------------------------------------------------------------------------------------------- BARO
 	@commands.command(name='baro', help="Time til Baro's next visit or his inventory.")
@@ -272,6 +278,7 @@ class WarframeCog(commands.Cog):
 			#msg = f"id={baro.id}\nactivation={baro.activation}\nexpiry={baro.expiry}\ncharacter={baro.character}\nlocation={baro.location}\n"
 			#msg += f"psId={baro.psId}\nactive={baro.active}\nstartString={baro.startString}\nendString={baro.endString}\ninventory={baro.inventory}"
 			await ctx.send(embed=embed, delete_after=90.0)
+		await ctx.message.delete()
 	
 	# ------------------------------------------------------------------------------------------------------------- STEELPATH
 	@commands.command(name='steelpath', help="Weekly steel essence rewards")
@@ -312,6 +319,7 @@ class WarframeCog(commands.Cog):
 			embed.add_field(name="Cost", value=cost_str, inline=True)
 			embed.add_field(name="_ _", value="_ _", inline=True)
 			await ctx.send(embed=embed, delete_after=30.0)
+		await ctx.message.delete()
 
 	# ------------------------------------------------------------------------------------------------------------- ARBITRATION
 	@commands.command(name='arbitration', help="Shows information about the current arbitration")
@@ -330,6 +338,7 @@ class WarframeCog(commands.Cog):
 			embed.set_footer(text=f"{arbi.timeLeft} remaining", icon_url="https://cdn.discordapp.com/emojis/931758276784316416.png")
 
 			await ctx.send(embed=embed, delete_after=30.0)
+		await ctx.message.delete()
 
 
 	# ============================================================================================================= SEARCHABLE
@@ -371,6 +380,7 @@ class WarframeCog(commands.Cog):
 			embed.add_field(name="Rolled", value=msg, inline=True)
 
 			await ctx.send(embed=embed, delete_after=60.0)
+		await ctx.message.delete()
 
 	# ------------------------------------------------------------------------------------------------------------- WARFRAME
 	@commands.command(name='frame', help="Information about the specified warframe.")
@@ -414,6 +424,7 @@ class WarframeCog(commands.Cog):
 				embed.add_field(name=ability.name, value=f"*{ability.description}*", inline=False)
 
 			await ctx.send(embed=embed, delete_after=90.0)
+		await ctx.message.delete()
 
 	# ------------------------------------------------------------------------------------------------------------- WEAPON
 	@commands.command(name='weapon', help="Limited information about the specified weapon", hidden=True)
@@ -433,6 +444,8 @@ class WarframeCog(commands.Cog):
 			embed.add_field(name=weapon.dispositionString, value="_ _", inline=False)
 			embed.set_thumbnail(url=weapon.wikiaThumbnail)
 			await ctx.send(embed=embed, delete_after=30.0)
+		
+		await ctx.message.delete()
 
 	# ------------------------------------------------------------------------------------------------------------- DROPS
 	@commands.command(name='drop', help="Something about drop information", hidden=True)
@@ -466,6 +479,8 @@ class WarframeCog(commands.Cog):
 				print(drops)
 				pprint(drop_info)
 				await ctx.send(f"Couldn't find drop information for {arg}", delete_after=3.0)
+
+		await ctx.message.delete()
 
 	@commands.command(name="drops", hidden=True)
 	async def drops(self, ctx, *args):

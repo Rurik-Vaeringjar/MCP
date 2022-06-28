@@ -57,6 +57,7 @@ class FFXIV(commands.Cog):
 		hour, minute = get_eorzean_time()
 
 		await ctx.send(f"Current Eorzean time is {hour}:{str(minute).zfill(2)}?", delete_after=10.0)
+		await ctx.message.delete()
 
 	# ------------------------------------------------------------------------------------------------------------- OGNODES
 	# DEPRECIATED
@@ -80,6 +81,7 @@ class FFXIV(commands.Cog):
 					msg+=temp
 			await ctx.send(msg if msg else "No known nodes currently available")
 		con.close()
+		await ctx.message.delete()
 	
 	# ------------------------------------------------------------------------------------------------------------- NODES
 	# Syntax for json object in database
@@ -116,7 +118,9 @@ class FFXIV(commands.Cog):
 					msg = ""
 				msg+=temp
 			await ctx.send(msg if msg else "No known nodes currently available", delete_after=30.0)
+
 		con.close()
+		await ctx.message.delete()
 
 	# ------------------------------------------------------------------------------------------------------------- LOTTERY
 	@commands.command(name='lottery', help="", hidden=True)
@@ -199,6 +203,9 @@ class FFXIV(commands.Cog):
 
 		await ctx.send(msg, delete_after=5.0)
 		con.close()
+
+		await ctx.message.delete()
+
 	@commands.command(name='lotto', hidden=True)
 	async def fc_lotto(self, ctx, *args):
 		await self.fc_lottery(ctx, *args)
@@ -216,4 +223,6 @@ class FFXIV(commands.Cog):
 			print(f"ERR: Query failure: {e}")
 		else:
 			await ctx.send(num, delete_after=5.0)
+		
+		await ctx.message.delete()
 		con.close()	
