@@ -15,8 +15,8 @@ import random
 from tools.useful_functions import log, log_nl
 
 from warframe import WarframeCog
-from ffxiv import FFXIV
-from valheim import Valheim
+#from ffxiv import FFXIV
+#from valheim import Valheim
 from sp import Sp
 
 setproctitle.setproctitle("Master Control Program")
@@ -76,10 +76,10 @@ async def on_message(message):
 
 	msg = message.content
 	
-	#if msg.startswith(f"{cmd}roll") or msg.startswith(f"{cmd}help") or msg.startswith(f"{cmd}datetime") or msg.startswith(f"{cmd}dt"):
-	#	log(f"CMD: {message.author.name} called " + message.content)
-	#elif msg.startswith(cmd):
-	#	log(f"CMD: {message.author.name} called " + message.content)
+	if msg.startswith(f"{cmd}roll") or msg.startswith(f"{cmd}help") or msg.startswith(f"{cmd}datetime") or msg.startswith(f"{cmd}dt"):
+		log(f"CMD: {message.author.name} called " + message.content)
+	elif msg.startswith(cmd):
+		log(f"CMD: {message.author.name} called " + message.content)
 	#	delete = True
 	
 	#process all the bot and cog commands
@@ -96,11 +96,11 @@ async def on_message(message):
 ################################################################################################################### COGS
 bot.add_cog(Sp(bot))
 bot.add_cog(WarframeCog(bot))
-bot.add_cog(FFXIV(bot))
-bot.add_cog(Valheim(bot))
+#bot.add_cog(FFXIV(bot))
+#bot.add_cog(Valheim(bot))
 
 ################################################################################################################### COMMANDS
-@bot.command(name='roll', help='Specify the size and number of dice to roll (5d6, 10d8, 1d20).\nBy default rolls 1d20 and you can specify a modifier (1d6+3, 1d20-2, 5d4+5)')
+@bot.command(name='roll', help='Roll dice (ex: 5d4+5)')
 async def roll_dice(ctx, arg="1d20"):
 	arg = arg.lower()
 	

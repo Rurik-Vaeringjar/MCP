@@ -42,7 +42,7 @@ def wf_emoji(emoji: str=None) -> str:
 	return "<:clem:931758276784316416>"
 
 ################################################################################################################### WARFRAME COG
-class WarframeCog(commands.Cog):
+class WarframeCog(commands.Cog, name='Warframe'):
 	def __init__(self, bot):
 		self.bot = bot
 		self._last_member = None
@@ -74,7 +74,7 @@ class WarframeCog(commands.Cog):
 
 	# ============================================================================================================= WORLDSTATE COMMANDS
 	# ------------------------------------------------------------------------------------------------------------- FISSURES
-	@commands.command(name='fissures', help="Lists all currently active fissures and their time remaining")
+	@commands.command(name='fissures', help="Active fissures and void storms")
 	async def show_fissures(self, ctx):
 		try:
 			pc_wf = wf_api('pc')
@@ -125,7 +125,7 @@ class WarframeCog(commands.Cog):
 	
 
 	# ------------------------------------------------------------------------------------------------------------- INVASIONS
-	@commands.command(name='invasions', help="Lists all currently active invasions and their progress")
+	@commands.command(name='invasions', help="Active invasion progress")
 	async def show_invasions(self, ctx):
 		try: 
 			pc_wf = wf_api('pc')
@@ -175,7 +175,7 @@ class WarframeCog(commands.Cog):
 		await self.show_invasions(ctx)
 
 	# ------------------------------------------------------------------------------------------------------------- SORTIE
-	@commands.command(name='sortie', help="Current sortie missions and modifiers")
+	@commands.command(name='sortie', help="Sortie missions and mods")
 	async def show_sortie(self, ctx):
 		try:
 			pc_wf = wf_api('pc')
@@ -193,7 +193,7 @@ class WarframeCog(commands.Cog):
 		await ctx.message.delete()
 	
 	# ------------------------------------------------------------------------------------------------------------- CETUS
-	@commands.command(name="cetus", help="Shows infomation about the day/night cycle on Cetus")
+	@commands.command(name="cetus", help="Day/night cycle")
 	async def cetus_cycle(self, ctx):
 		try:
 			pc_wf = wf_api('pc')
@@ -211,7 +211,7 @@ class WarframeCog(commands.Cog):
 		await ctx.message.delete()
 
 	# ------------------------------------------------------------------------------------------------------------- VALLIS
-	@commands.command(name='vallis', help="Shows information about the warm/cold cycle on the Vallis")
+	@commands.command(name='vallis', help="Warm/cold cycle")
 	async def vallis_cycle(self, ctx):
 		try:
 			pc_wf = wf_api('pc')
@@ -229,7 +229,7 @@ class WarframeCog(commands.Cog):
 		await ctx.message.delete()
 	
 	# ------------------------------------------------------------------------------------------------------------- DEIMOS
-	@commands.command(name='deimos', help="Shows information about the fass/vome cycle on the Cambion Drift")
+	@commands.command(name='deimos', help="Fass/Vome cycle")
 	async def deimos_cycle(self, ctx):
 		try:
 			pc_wf = wf_api('pc')
@@ -247,7 +247,7 @@ class WarframeCog(commands.Cog):
 		await ctx.message.delete()
 
 	# ------------------------------------------------------------------------------------------------------------- BARO
-	@commands.command(name='baro', help="Time til Baro's next visit or his inventory.")
+	@commands.command(name='baro', help="Time till or inventory")
 	async def baro_info(self, ctx):
 		try:
 			pc_wf = wf_api('pc')
@@ -281,7 +281,7 @@ class WarframeCog(commands.Cog):
 		await ctx.message.delete()
 	
 	# ------------------------------------------------------------------------------------------------------------- STEELPATH
-	@commands.command(name='steelpath', help="Weekly steel essence rewards")
+	@commands.command(name='steelpath', help="Weekly rewards")
 	async def steelpath_info(self, ctx):
 		try:
 			pc_wf = wf_api('pc')
@@ -322,7 +322,7 @@ class WarframeCog(commands.Cog):
 		await ctx.message.delete()
 
 	# ------------------------------------------------------------------------------------------------------------- ARBITRATION
-	@commands.command(name='arbitration', help="Shows information about the current arbitration")
+	@commands.command(name='arbitration', help="Info about current arbi")
 	async def arbitration_info(self, ctx):
 		try:
 			pc_wf = wf_api('pc')
@@ -343,7 +343,7 @@ class WarframeCog(commands.Cog):
 
 	# ============================================================================================================= SEARCHABLE
 	# ------------------------------------------------------------------------------------------------------------- RIVEN
-	@commands.command(name='riven', help="Shows price information, from somewhere, for the specified riven")
+	@commands.command(name='riven', help="Price info")
 	async def riven_price(self, ctx, *args):
 		arg = "Braton"
 		if args:
@@ -383,7 +383,7 @@ class WarframeCog(commands.Cog):
 		await ctx.message.delete()
 
 	# ------------------------------------------------------------------------------------------------------------- WARFRAME
-	@commands.command(name='frame', help="Information about the specified warframe.")
+	@commands.command(name='frame', help="Info about specified frame")
 	async def warframe_info(self, ctx, *args):
 		arg = 'Excalibur'
 		if args:
@@ -427,7 +427,7 @@ class WarframeCog(commands.Cog):
 		await ctx.message.delete()
 
 	# ------------------------------------------------------------------------------------------------------------- WEAPON
-	@commands.command(name='weapon', help="Limited information about the specified weapon", hidden=True)
+	@commands.command(name='weapon', help="Info about specified weapon", hidden=True)
 	async def weapon_info(self, ctx, *args):
 		arg = "braton"
 		if args:
