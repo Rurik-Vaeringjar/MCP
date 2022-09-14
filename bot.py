@@ -1,5 +1,6 @@
 #bot.py
 #269954014127325194
+import asyncio
 import os
 from dotenv import load_dotenv
 
@@ -15,9 +16,9 @@ import random
 from tools.useful_functions import log, log_nl
 
 from warframe import WarframeCog
-from ffxiv import FFXIV
-from valheim import Valheim
-from sp import Sp
+#from ffxiv import FFXIV
+#from valheim import Valheim
+#from sp import Sp
 
 setproctitle.setproctitle("Master Control Program")
 
@@ -28,6 +29,7 @@ FILENAME = os.getenv("FILENAME")
 
 intents = discord.Intents.default()
 intents.members = True
+intents.message_content = True
 cmd = '.'
 bot = commands.Bot(command_prefix=cmd, intents=intents)
 
@@ -76,10 +78,10 @@ async def on_message(message):
 
 	msg = message.content
 	
-	#if msg.startswith(f"{cmd}roll") or msg.startswith(f"{cmd}help") or msg.startswith(f"{cmd}datetime") or msg.startswith(f"{cmd}dt"):
-	#	log(f"CMD: {message.author.name} called " + message.content)
-	#elif msg.startswith(cmd):
-	#	log(f"CMD: {message.author.name} called " + message.content)
+	if msg.startswith(f"{cmd}roll") or msg.startswith(f"{cmd}help") or msg.startswith(f"{cmd}datetime") or msg.startswith(f"{cmd}dt"):
+		log(f"CMD: {message.author.name} called " + message.content)
+	elif msg.startswith(cmd):
+		log(f"CMD: {message.author.name} called " + message.content)
 	#	delete = True
 	
 	#process all the bot and cog commands
@@ -94,10 +96,10 @@ async def on_message(message):
 	#	await message.delete()
 
 ################################################################################################################### COGS
-bot.add_cog(Sp(bot))
-bot.add_cog(WarframeCog(bot))
-bot.add_cog(FFXIV(bot))
-bot.add_cog(Valheim(bot))
+#bot.add_cog(Sp(bot))
+#bot.add_cog(WarframeCog(bot))
+#bot.add_cog(FFXIV(bot))
+#bot.add_cog(Valheim(bot))
 
 ################################################################################################################### COMMANDS
 @bot.command(name='roll', help='Specify the size and number of dice to roll (5d6, 10d8, 1d20).\nBy default rolls 1d20 and you can specify a modifier (1d6+3, 1d20-2, 5d4+5)')
@@ -241,4 +243,9 @@ async def member_list(ctx):
 			print(f"name: {member.name}\t\t\tnick: {member.nick}\t\t\t(id: {member.id})")
 		print(f"{i} total on {ctx.guild.name}")
 
-bot.run(TOKEN)
+async def main():
+	async with bot:
+		await bot.add_cog(WarframeCog(bot))
+		await bot.start(TOKEN)
+
+asyncio.run(main())
