@@ -69,7 +69,7 @@ class WarframeCog(commands.Cog, name='Warframe'):
 
 	@commands.command(name='masterysymbol', hidden=True)
 	async def mastery_symbol(self, ctx):
-		msg = warframe_emoji("mastery")
+		msg = wf_emoji("mastery")
 		await ctx.send(msg)
 
 	# ============================================================================================================= WORLDSTATE COMMANDS
@@ -83,31 +83,33 @@ class WarframeCog(commands.Cog, name='Warframe'):
 			log(f"ERR: Lotus API failure: {e}")
 			await ctx.send(f"Lotus API failure: {e}", delete_after=5.0)
 		else:	
-
 			fissure_list = [[],[],[],[],[]]
 			for fissure in fissures.list:
 				fissure_list[fissure.tierNum-1].append(fissure)
 	
-			embeds = [	discord.Embed(title="Void Fissures", url=fissures.wikiaUrl, ), 
-						discord.Embed(title="Void Storms", url=fissures.wikiaUrl, )]
+			embeds = [	discord.Embed(title="Void Fissures", url=fissures.wikiaUrl),
+			 			discord.Embed(title="Steelpath Fissures", url=fissures.wikiaUrl),
+						discord.Embed(title="Void Storms", url=fissures.wikiaUrl)]
 			#embeds[0].set_author(name="Void Fissures", icon_url="https://static.wikia.nocookie.net/warframe/images/5/57/VoidTearIcon_b.png")
 			#embeds[1].set_author(name="Void Storms", icon_url="https://static.wikia.nocookie.net/warframe/images/5/57/VoidTearIcon_b.png")
 			
-			missions = [["", "", "", "", ""], ["", "", "", ""]]
-			enemies = [["", "", "", "", ""], ["", "", "", ""]]
-			eta = [["", "", "", "", ""], ["", "", "", ""]]
-			locations = [["", "", "", "", ""], ["", "", "", ""]]
+			missions = [["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", ""]]
+			enemies = [["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", ""]]
+			eta = [["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", ""]]
+			locations = [["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", ""]]
 
 			for i, fissures in enumerate(fissure_list):
 				for fissure in fissures:
 					if not "-" in fissure.eta:
 						index = 0
-						if fissure.isStorm:
+						if fissure.isHard:
 							index = 1
+						if fissure.isStorm:
+							index = 2
 						missions[index][i] += f"{fissure.enemy} {fissure.missionType}\n"
 						eta[index][i] += f"{fissure.eta}\n"
 						locations[index][i] += f"{fissure.location}\n"
-				for j in range(2):
+				for j in range(3):
 					if i == 4 and j == 1:
 						break
 					embeds[j].add_field(name=fissure_list[i][0].tier, value=missions[j][i], inline=True)
@@ -116,6 +118,7 @@ class WarframeCog(commands.Cog, name='Warframe'):
 
 			await ctx.send(embed=embeds[0], delete_after=120.0)
 			await ctx.send(embed=embeds[1], delete_after=120.0)
+			await ctx.send(embed=embeds[2], delete_after=120.0)
 		await ctx.message.delete()
 
 	@commands.command(name='fissure', hidden=True)
@@ -339,6 +342,10 @@ class WarframeCog(commands.Cog, name='Warframe'):
 
 			await ctx.send(embed=embed, delete_after=30.0)
 		await ctx.message.delete()
+
+	@commands.command(name='arbi', hidden=True)
+	async def arbi_info(self, ctx):
+		await self.arbitration_info(ctx)
 
 
 	# ============================================================================================================= SEARCHABLE

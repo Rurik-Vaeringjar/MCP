@@ -104,6 +104,12 @@ bot.add_cog(WarframeCog(bot))
 async def roll_dice(ctx, arg="1d20"):
 	arg = arg.lower()
 	
+	stat = False
+	if arg == "stat":
+		stat = True
+		arg = "4d6"
+		
+
 	part = get_mod(arg)
 	
 	arg = part[0]
@@ -131,6 +137,9 @@ async def roll_dice(ctx, arg="1d20"):
 		except ValueError:
 			await ctx.send("Enter an integer.")
 		else:
+			if stat:
+				dlist.sort(reverse=True)
+				total -= dlist[-1]
 			send_str = f"You rolled {dice[0]}d{dice[1]}{part[1]}{part[2]}" + (f" {dlist}" if len(dlist) > 1 or addsub != 0 else "") + f", getting {total}."
 			if len(send_str) < 2001:
 				await ctx.send(send_str)

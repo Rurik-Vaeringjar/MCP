@@ -38,6 +38,10 @@ def check_name(arg):
 			return True
 	return False
 
+def confirm_name(*args):
+	if len(args) != 2:
+		return True
+
 def check_splist(arg):
 	with open(SPLIST) as file:
 		splist = [line.rstrip('\n') for line in file]

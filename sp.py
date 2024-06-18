@@ -178,7 +178,7 @@ class Sp(commands.Cog):
 		else:
 			con = get_connection()
 			cur = con.cursor()
-
+			
 			name = concat(args)
 			name = capitalize_words(name)
 			if check_name(name):
